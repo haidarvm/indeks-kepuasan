@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'departments')}">
+
+<body>
+
+<h2>Department</h2>
+<form th:object="${department}" class="form-horizontal" id="add-department-form" method="post">
+    <div class="form-group has-feedback">
+        <input th:field="*{name}" />
+        <input th:field="*{textService}" />
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button class="btn btn-default" type="submit">Add
+                Department</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>
