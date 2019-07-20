@@ -34,7 +34,7 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
-       loadData();
+       //loadData();
+        System.out.println(" Don't load anything");
     }
 }

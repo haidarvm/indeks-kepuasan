@@ -2,15 +2,15 @@
 
 <body>
 
-<h2>Department</h2>
-<form th:object="${department}" class="form-horizontal" id="add-department-form" method="post">
+<h2>Department Update</h2>
+<form th:object="${department}" class="form-horizontal" id="update-department-form" method="post">
     <div class="form-group has-feedback">
         <input th:field="*{name}" />
         <input th:field="*{textService}" />
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button class="btn btn-default" type="submit">Add
+            <button class="btn btn-default" type="submit">Update
                 Department</button>
         </div>
     </div>
