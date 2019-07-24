@@ -6,38 +6,43 @@
 </head>
 <body>
 
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Layanan</th>
-        <th>Hari</th>
-        <th>Tanggal</th>
-        <th>Puas</th>
-        <th>Tidak Puas</th>
-        <th>Total</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="score : ${scores}">
-        <td th:text="${score.department.name}">Layanan Gigi</td>
-        <td th:text="${score.created.getDayOfWeek()}">Monday</td>
-        <td th:text="${#temporals.format(score.created,'dd-MM-yyyy')}">2019-01-01</td>
-        <td th:text="${score.satisfy}">1</td>
-        <td th:text="${score.dissatisfy}">1</td>
-        <td th:text="${score.total}">3</td>
-    </tr>
-    <tr>
-        <td>Jumlah Total</td>
-        <td></td>
-        <td></td>
-        <td th:text="${scoreSatisfy}">3</td>
-        <td th:text="${scoreDissatisfy}">3</td>
-        <td th:text="${countAll}">3</td>
-    </tr>
-    </tbody>
-</table>
-<table>
-</table>
-<h1 >Total</h1>
+<div class="card-header">
+    <strong class="card-title">Report Today</strong>
+</div>
+
+<div class="card-body">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Layanan</th>
+            <th>Hari</th>
+            <th>Tanggal</th>
+            <th>Puas</th>
+            <th>Tidak Puas</th>
+            <th>Total</th>
+            <th>View</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="score : ${scores}">
+            <td th:text="${score.department.name}">Layanan Gigi</td>
+            <td th:text="${score.created.getDayOfWeek()}">Monday</td>
+            <td th:text="${#temporals.format(score.created,'dd-MM-yyyy')}">2019-01-01</td>
+            <td th:text="${score.satisfy}">1</td>
+            <td th:text="${score.dissatisfy}">1</td>
+            <td th:text="${score.total}">3</td>
+            <td><a th:href="@{'/report/' + ${score.department.id}}"><button type="button" class="btn btn-success btn-sm"><i class="fa fa-magic"></i>&nbsp; View</button></a></td>
+        </tr>
+        <tr>
+            <td>Jumlah Total</td>
+            <td></td>
+            <td></td>
+            <td th:text="${scoreSatisfy}">3</td>
+            <td th:text="${scoreDissatisfy}">3</td>
+            <td th:text="${countAll}">3</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

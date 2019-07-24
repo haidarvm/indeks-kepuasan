@@ -33,7 +33,6 @@ public class DataLoader implements CommandLineRunner {
 //        score1.getDepartment().setId(1L);
         score1.setDepartment(savedGigi);
         System.out.println(" Loaded Department ...");
-
     }
 
     @Override

@@ -57,14 +57,5 @@ public class ScoreController {
         return "score/dissatisfied";
     }
 
-    @RequestMapping("/dissatisfied_slug_date/{departmentSlug}/{created}")
-    public String listDissatisfiedSlugByDateByDepartment(@PathVariable String departmentSlug, @PathVariable String created, Model model) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime startDate = LocalDateTime.parse(created + " 00:00:00", formatter);
-        LocalDateTime endDate = LocalDateTime.parse(created + " 23:59:59", formatter);
-        model.addAttribute( "dissatisfied" , scoreRepository.findByScoreAndAndDepartment_SlugAndCreatedBetween(-1, departmentSlug, startDate, endDate));
-        model.addAttribute("count", scoreRepository.countByScoreAndDepartment_SlugAndCreatedBetween(-1, departmentSlug, startDate, endDate));
-        return "score/dissatisfied";
-    }
 }
 

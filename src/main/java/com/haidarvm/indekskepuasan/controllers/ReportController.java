@@ -3,6 +3,7 @@ package com.haidarvm.indekskepuasan.controllers;
 
 import com.haidarvm.indekskepuasan.repositories.DepartmentRepository;
 import com.haidarvm.indekskepuasan.repositories.ScoreRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,9 +15,12 @@ import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequestMapping("/report")
-public class ReportController {
+public  class ReportController {
 
-//    private final DepartmentRepository departmentRepository;
+
+    @Value("${welcome.message}")
+    private String message;
+
 
     private final ScoreRepository scoreRepository;
     private final DepartmentRepository departmentRepository;
@@ -54,7 +58,6 @@ public class ReportController {
         model.addAttribute("department", departmentRepository.findById(departmentId));
         return "report/department";
     }
-
 
 
 

@@ -9,18 +9,18 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th style="width: 150px">ID</th>
-        <th style="width: 150px">Department</th>
-        <th style="width: 150px">Slug</th>
-        <th style="width: 150px">Text Layanan</th>
+        <th>ID</th>
+        <th>Department</th>
+        <th>Text Layanan</th>
+        <th>Edit</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="department : ${departments}">
         <td th:text="${department.id}">1</td>
         <td th:text="${department.name}">Haidar</td>
-        <td th:text="${department.slug}">Gigi</td>
         <td th:text="${department.textService}">Layanan</td>
+        <td><a th:href="@{'/department/update/' + ${department.id}}"><button type="button" class="btn btn-success btn-sm"><i class="fa fa-magic"></i>&nbsp; Edit</button></a></a></td>
     </tr>
     </tbody>
 </table>

@@ -24,9 +24,6 @@ public class Department extends BaseEntity {
     @Column(name = "available")
     private Integer available;
 
-    @Column(name = "slug")
-    private String slug;
-
     @Column(name = "logo")
     private String logo;
 
