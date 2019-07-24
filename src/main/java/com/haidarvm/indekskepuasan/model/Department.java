@@ -1,5 +1,6 @@
 package com.haidarvm.indekskepuasan.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,6 +15,8 @@ import javax.persistence.*;
 public class Department extends BaseEntity {
 
     @Id
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
+    @JsonBackReference(value = "score")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
@@ -34,12 +37,12 @@ public class Department extends BaseEntity {
     private String bgColor;
 
     @Column(name = "satisfy_img")
-    private String satisfy_img;
+    private String satisfyImg;
 
     @Column(name = "dissatisfy_img")
-    private String dissatisfy_img;
+    private String dissatisfyImg;
 
     @Column(name = "device_id")
-    private String device_id;
+    private String deviceIid;
 
 }

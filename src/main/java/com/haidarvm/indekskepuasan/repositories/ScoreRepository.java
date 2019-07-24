@@ -1,13 +1,15 @@
 package com.haidarvm.indekskepuasan.repositories;
 
 import com.haidarvm.indekskepuasan.model.Score;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface ScoreRepository extends CrudRepository<Score, Long> {
+@RepositoryRestResource(collectionResourceRel = "score", path = "api/score")
+public interface ScoreRepository extends JpaRepository<Score, Long> {
 
     List<Score> findByScore(Integer score);
 
