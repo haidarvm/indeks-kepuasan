@@ -6,6 +6,7 @@
 <form th:object="${department}" class="form-horizontal" id="insert-department-form" method="post">
     <div class="form-group has-feedback">
         <input th:field="*{name}" />
+        <input th:field="*{slug}" />
         <input th:field="*{textService}" />
     </div>
     <div class="form-group">

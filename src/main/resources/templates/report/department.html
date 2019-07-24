@@ -5,11 +5,10 @@
     <title>List of Scores</title>
 </head>
 <body>
-
+<h1 th:text="${department.get().name}">Layanan Department</h1>
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Layanan</th>
         <th>Hari</th>
         <th>Tanggal</th>
         <th>Puas</th>
@@ -19,7 +18,6 @@
     </thead>
     <tbody>
     <tr th:each="score : ${scores}">
-        <td th:text="${score.department.name}">Layanan Gigi</td>
         <td th:text="${score.created.getDayOfWeek()}">Monday</td>
         <td th:text="${#temporals.format(score.created,'dd-MM-yyyy')}">2019-01-01</td>
         <td th:text="${score.satisfy}">1</td>
@@ -28,7 +26,6 @@
     </tr>
     <tr th:each="total : ${totals}">
         <td>Jumlah Total</td>
-        <td></td>
         <td></td>
         <td th:text="${total.satisfy}">1</td>
         <td th:text="${total.dissatisfy}">1</td>

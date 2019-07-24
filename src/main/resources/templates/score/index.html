@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'scores')}">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Scores</title>
+</head>
+<body>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th style="width: 150px">ID</th>
+        <th style="width: 150px">Scores</th>
+        <th style="width: 150px">Date</th>
+        <th style="width: 150px">Text Layanan</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="score : ${scores}">
+        <td th:text="${score.id}">1</td>
+        <td th:text="${score.score}">Haidar</td>
+        <td th:text="${#temporals.format(score.created,'dd-MM-yyyy')}">2019-01-01</td>
+        <td th:text="${score.department.name}">Layanan</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

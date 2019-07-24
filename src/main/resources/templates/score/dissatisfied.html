@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'dissatisfied')}">
+<head>
+    <meta charset="UTF-8">
+    <title>List Of Dissatisfied</title>
+</head>
+<body>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th style="width: 150px">ID</th>
+        <th style="width: 150px">Scores</th>
+        <th style="width: 150px">Date</th>
+        <th style="width: 150px">Text Layanan</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="dissatisfy : ${dissatisfied}">
+        <td th:text="${dissatisfy.id}">1</td>
+        <td th:text="${dissatisfy.score}">Haidar</td>
+        <td th:text="${dissatisfy.created}">2019-01-01</td>
+        <td th:text="${dissatisfy.department.name}">Layanan</td>
+    </tr>
+    </tbody>
+</table>
+
+<h1>Total Dissatisfy <span th:text="${count}"></span></h1>
+</body>
+</html>

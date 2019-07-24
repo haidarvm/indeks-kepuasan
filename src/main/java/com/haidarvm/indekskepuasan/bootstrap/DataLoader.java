@@ -1,6 +1,7 @@
 package com.haidarvm.indekskepuasan.bootstrap;
 
 import com.haidarvm.indekskepuasan.model.Department;
+import com.haidarvm.indekskepuasan.model.Score;
 import com.haidarvm.indekskepuasan.repositories.DepartmentRepository;
 import com.haidarvm.indekskepuasan.repositories.ScoreRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -28,6 +29,9 @@ public class DataLoader implements CommandLineRunner {
         kia.setName("Layanan KIA");
         Department savedKia = departmentRepository.save(kia);
 
+        Score score1 = new Score();
+//        score1.getDepartment().setId(1L);
+        score1.setDepartment(savedGigi);
         System.out.println(" Loaded Department ...");
 
     }

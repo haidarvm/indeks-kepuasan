@@ -59,7 +59,7 @@ public class DepartmentController {
             return "department/form-update";
         } else {
             department.setId(departmentId);
-            Department savedDepartment = departmentRepository.save(department);
+            departmentRepository.save(department);
             return "redirect:/department";
         }
     }

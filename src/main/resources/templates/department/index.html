@@ -11,6 +11,7 @@
     <tr>
         <th style="width: 150px">ID</th>
         <th style="width: 150px">Department</th>
+        <th style="width: 150px">Slug</th>
         <th style="width: 150px">Text Layanan</th>
     </tr>
     </thead>
@@ -18,6 +19,7 @@
     <tr th:each="department : ${departments}">
         <td th:text="${department.id}">1</td>
         <td th:text="${department.name}">Haidar</td>
+        <td th:text="${department.slug}">Gigi</td>
         <td th:text="${department.textService}">Layanan</td>
     </tr>
     </tbody>
