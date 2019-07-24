@@ -36,7 +36,7 @@ public class Score extends BaseEntity {
     private Integer score;
 
     @Column(name = "device_id")
-    private String device_id;
+    private String deviceId;
 
     public String total;
 

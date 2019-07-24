@@ -4,9 +4,9 @@ package com.haidarvm.indekskepuasan.restControllers;
 import com.haidarvm.indekskepuasan.model.Department;
 import com.haidarvm.indekskepuasan.model.Score;
 import com.haidarvm.indekskepuasan.repositories.ScoreRepository;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.Map;
@@ -22,15 +22,24 @@ public class ScoreRestController {
     }
 
 
-    @RequestMapping("/score/insert/{departmentId}/{scoreStatisfy}")
-    public Map<String, String> score(@PathVariable Long departmentId,  @PathVariable Integer scoreStatisfy) {
+    @RequestMapping(value="/score/insert/{departmentId}/{scoreStatisfy}/{deviceId}", method = RequestMethod.PUT)
+    public Map<String, String> score(@PathVariable Long departmentId,  @PathVariable Integer scoreStatisfy, @PathVariable String deviceId) {
         Department dept1 = new Department();
         Score score1 = new Score();
         score1.setScore(scoreStatisfy);
         dept1.setId(departmentId);
         score1.setDepartment(dept1);
+        score1.setDeviceId(deviceId);
         scoreRepository.save(score1);
-        return Collections.singletonMap("message", "Hello Terima kasih Telah memberikan Kepuasan");
+        return Collections.singletonMap("message", "Terima kasih Telah memberikan Kepuasan");
+    }
+
+    @RequestMapping(value="/score/insert/", method = RequestMethod.POST)
+    public ResponseEntity<Score> insertScore(@RequestBody Score score) {
+        if(score !=null) {
+            scoreRepository.save(score);
+        }
+        return new ResponseEntity(score,HttpStatus.OK);
     }
 
     @RequestMapping("/score")
