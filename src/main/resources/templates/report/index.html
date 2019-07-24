@@ -26,15 +26,18 @@
         <td th:text="${score.dissatisfy}">1</td>
         <td th:text="${score.total}">3</td>
     </tr>
-    <tr th:each="total : ${totals}">
+    <tr>
         <td>Jumlah Total</td>
         <td></td>
         <td></td>
-        <td th:text="${total.satisfy}">1</td>
-        <td th:text="${total.dissatisfy}">1</td>
-        <td th:text="${total.total}">3</td>
+        <td th:text="${scoreSatisfy}">3</td>
+        <td th:text="${scoreDissatisfy}">3</td>
+        <td th:text="${countAll}">3</td>
     </tr>
     </tbody>
 </table>
+<table>
+</table>
+<h1 >Total</h1>
 </body>
 </html>
