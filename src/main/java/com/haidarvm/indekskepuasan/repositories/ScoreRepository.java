@@ -37,6 +37,19 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
     @Query(value = "SELECT MAX(id) as id,  SUM(score) as score, count(department_id) as total,\n" +
             "SUM(CASE WHEN score = 1 THEN 1 ELSE 0 END) as satisfy ,\n" +
             "SUM(CASE WHEN score = -1 THEN 1 ELSE 0 END) as dissatisfy,\n" +
+            "PARSEDATETIME(FORMATDATETIME(created, 'yyyy-MM-dd'), 'yyyy-MM-dd') as created, MAX(device_id) as device_id, department_id, MAX(created) as created FROM Score WHERE PARSEDATETIME(FORMATDATETIME(created, 'yyyy-MM-dd'), 'yyyy-MM-dd') BETWEEN  ?1 AND ?2  GROUP BY department_id, created ORDER BY created DESC", nativeQuery = true)
+    List<Score> generalReportByDate(String startDate, String endDate);
+
+    @Query(value = "SELECT MAX(id) as id,  SUM(score) as score, count(department_id) as total,\n" +
+            "SUM(CASE WHEN score = 1 THEN 1 ELSE 0 END) as satisfy ,\n" +
+            "SUM(CASE WHEN score = -1 THEN 1 ELSE 0 END) as dissatisfy,\n" +
+            "PARSEDATETIME(FORMATDATETIME(created, 'yyyy-MM-dd'), 'yyyy-MM-dd') as created, MAX(device_id) as device_id, department_id, MAX(created) as created FROM Score WHERE department_id = ?1 AND PARSEDATETIME(FORMATDATETIME(created, 'yyyy-MM-dd'), 'yyyy-MM-dd') BETWEEN  ?2 AND ?3 GROUP BY created ORDER BY created DESC", nativeQuery = true)
+    List<Score> generalReportByDepartmentIdAndByDate(Long departmentId, String startDate, String endDate);
+
+
+    @Query(value = "SELECT MAX(id) as id,  SUM(score) as score, count(department_id) as total,\n" +
+            "SUM(CASE WHEN score = 1 THEN 1 ELSE 0 END) as satisfy ,\n" +
+            "SUM(CASE WHEN score = -1 THEN 1 ELSE 0 END) as dissatisfy,\n" +
             "PARSEDATETIME(FORMATDATETIME(created, 'yyyy-MM-dd'), 'yyyy-MM-dd') as created, MAX(device_id) as device_id, department_id, MAX(created) as created FROM Score WHERE department_id = ?1 AND MONTH(created) = MONTH(current_date) AND YEAR(created) = YEAR(current_date) GROUP BY department_id, created ORDER BY created DESC", nativeQuery = true)
     List<Score> generalReportByDepartment(Long department_id);
 

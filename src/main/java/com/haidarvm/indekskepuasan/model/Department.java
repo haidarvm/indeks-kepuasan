@@ -1,6 +1,5 @@
 package com.haidarvm.indekskepuasan.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,8 +14,6 @@ import javax.persistence.*;
 public class Department extends BaseEntity {
 
     @Id
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "department")
-    @JsonBackReference(value = "score")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;

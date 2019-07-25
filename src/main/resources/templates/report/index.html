@@ -7,6 +7,39 @@
 <body>
 
 <div class="card-header">
+    <strong class="card-title">Report By Date</strong>
+</div>
+
+<div class="card-body">
+    <div class="card-body card-block">
+        <form th:object="${score}" th:action="@{/report/report_filter/}" method="post" class="form-inline">
+
+            <div class="form-group">
+                <label class="pr-1 form-control-label">Start</label>
+                <select name="department_id" data-placeholder="Choose Department" class="standardSelect" tabindex="1">
+                    <option value="" label="department"></option>
+                    <option value="" th:each="department : ${departments}" th:value="${department.id}" th:utext="${department.name}">Health Department</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="startDate" class="pr-1 form-control-label">Start</label>
+                <input name="startDate" type="date" id="startDate" placeholder="Start Date" required="" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="endDate" class="px-1 form-control-label">End</label>
+                <input name="endDate" type="date" id="endDate" placeholder="End Date" required="" class="form-control">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-sm">
+                    <i class="fa fa-dot-circle-o"></i> Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="card-header">
     <strong class="card-title">Report Today</strong>
 </div>
 
