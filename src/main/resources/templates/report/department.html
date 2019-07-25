@@ -28,12 +28,12 @@
             <td th:text="${score.dissatisfy}">1</td>
             <td th:text="${score.total}">3</td>
         </tr>
-        <tr th:each="total : ${totals}">
+        <tr >
             <td>Jumlah Total</td>
             <td></td>
-            <td th:text="${total.satisfy}">1</td>
-            <td th:text="${total.dissatisfy}">1</td>
-            <td th:text="${total.total}">3</td>
+            <td >1</td>
+            <td>1</td>
+<!--            <td th:text="${#aggregates.sum(scores.![total])}">3</td>-->
         </tr>
         </tbody>
     </table>
