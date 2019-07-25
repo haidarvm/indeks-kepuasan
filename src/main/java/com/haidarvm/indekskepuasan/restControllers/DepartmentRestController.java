@@ -4,6 +4,8 @@ import com.haidarvm.indekskepuasan.model.Department;
 import com.haidarvm.indekskepuasan.repositories.DepartmentRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api")
@@ -28,6 +30,11 @@ public class DepartmentRestController {
                     newDepartment.setId(id);
                     return departmentRepository.save(newDepartment);
                 });
+    }
+
+    @GetMapping("/department")
+    List<Department> selectAvailableDepartment() {
+        return departmentRepository.findByAvailable(1);
     }
 
 }

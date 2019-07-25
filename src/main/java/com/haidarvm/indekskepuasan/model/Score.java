@@ -18,11 +18,6 @@ import java.time.LocalDateTime;
 @Table(name = "score")
 public class Score extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", updatable = false, nullable = false)
-    private Long id;
-
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "department_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

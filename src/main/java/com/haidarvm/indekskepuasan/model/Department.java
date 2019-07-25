@@ -1,8 +1,11 @@
 package com.haidarvm.indekskepuasan.model;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Setter
 @Getter
@@ -13,14 +16,10 @@ import javax.persistence.*;
 @Table(name = "department")
 public class Department extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", updatable = false, nullable = false)
-    private Long id;
-
     @Column(name = "name")
     private String name;
 
+    @ColumnDefault("1")
     @Column(name = "available")
     private Integer available;
 
