@@ -10,14 +10,30 @@
         <form th:object="${department}" action="#" method="post" class="form-horizontal">
             <div class="row form-group">
                 <div class="col col-md-3"><label for="name" class=" form-control-label">Email</label></div>
-                <div class="col-12 col-md-9"><input th:field="*{name}" type="text" id="name" name="name"
-                                                    class="form-control"></div>
+                <div class="col-12 col-md-9"><input th:field="*{name}" type="text" id="name" name="name" class="form-control"></div>
             </div>
             <div class="row form-group">
                 <div class="col col-md-3"><label for="textService" class=" form-control-label">Text Service</label>
                 </div>
-                <div class="col-12 col-md-9"><input th:field="*{textService}" type="text" id="textService"
-                                                    name="textService" class="form-control"></div>
+                <div class="col-12 col-md-9"><input th:field="*{textService}" type="text" id="textService" name="textService" class="form-control"></div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3"><label for="available" class=" form-control-label">Available</label>
+                </div>
+                <div class="col-12 col-md-9"><input th:field="*{available}" type="text" id="available" name="available" class="form-control"></div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3"><label for="available" class=" form-control-label">Background Color</label>
+                <button class="jscolor {valueElement:'bgColor', onFineChange:'setTextColor(this)'}">
+                    Pick text color
+                </button>
+                </div>
+                <div class="col-12 col-md-9"><input th:field="*{bgColor}" type="text" id="bgColor" name="bgColor" class="form-control"></div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3"><label for="deviceId" class=" form-control-label">Available</label>
+                </div>
+                <div class="col-12 col-md-9"><input th:field="*{deviceId}" type="text" id="deviceId" name="deviceId" class="form-control"></div>
             </div>
             <div class="form-actions form-group">
                 <button type="submit" class="btn btn-primary btn-sm">Submit</button>
@@ -25,5 +41,7 @@
         </form>
     </div>
 </div>
+<script th:src="|/js/jscolor.js|"></script>
 </body>
+
 </html>
