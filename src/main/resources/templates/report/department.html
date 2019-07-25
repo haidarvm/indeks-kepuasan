@@ -31,9 +31,9 @@
         <tr >
             <td>Jumlah Total</td>
             <td></td>
-            <td >1</td>
-            <td>1</td>
-<!--            <td th:text="${#aggregates.sum(scores.![total])}">3</td>-->
+            <td th:text="${#aggregates.sum(scores.![satisfy])}">1</td>
+            <td th:text="${#aggregates.sum(scores.![dissatisfy])}">1</td>
+            <td th:text="${#aggregates.sum(scores.![total])}">3</td>
         </tr>
         </tbody>
     </table>

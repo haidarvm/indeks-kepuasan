@@ -27,6 +27,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/home").permitAll()
+                .and()
+                .authorizeRequests()
+                .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/api/**").permitAll()
                 .anyRequest().authenticated()
                 .antMatchers("/department/update/**").hasRole("ADMIN")
@@ -49,6 +52,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .csrf().disable();
+
+        http.headers().frameOptions().disable();
     }
 
     @Override

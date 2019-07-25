@@ -45,9 +45,6 @@ public  class ReportController {
         model.addAttribute("score", new Score());
         model.addAttribute("departments", departmentRepository.findAll());
         model.addAttribute("scores", scoreRepository.generalReport());
-        model.addAttribute("scoreSatisfy", scoreRepository.countByScoreAndCreatedBetween(1,startDate, endDate));
-        model.addAttribute("scoreDissatisfy", scoreRepository.countByScoreAndCreatedBetween(-1,startDate, endDate));
-        model.addAttribute("countAll", scoreRepository.countAllByCreatedBetween(startDate, endDate));
         return "report/index";
     }
 
@@ -77,9 +74,7 @@ public  class ReportController {
 
     @RequestMapping("/{departmentId}")
     public String reportByDepartment(@PathVariable Long departmentId, Model model){
-        Gson gson = new Gson();
         model.addAttribute("scores", scoreRepository.generalReportByDepartment(departmentId));
-        model.addAttribute("totals", scoreRepository.countReportByDepartment(departmentId));
         logger.debug("Here's total result {} " , scoreRepository.countReportByDepartment(departmentId).getTotal());
         model.addAttribute("department", departmentRepository.findById(departmentId));
         return "report/department";
@@ -88,7 +83,6 @@ public  class ReportController {
     @RequestMapping("detail/{departmentId}")
     public String reportDetailByDepartment(@PathVariable Long departmentId, Model model){
         model.addAttribute("scores", scoreRepository.generalReportByDepartment(departmentId));
-        model.addAttribute("totals", scoreRepository.countReportByDepartment(departmentId));
         model.addAttribute("department", departmentRepository.findById(departmentId));
         return "report/department";
     }

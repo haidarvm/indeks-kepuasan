@@ -38,11 +38,6 @@
     </div>
 </div>
 
-
-<div class="card-header">
-    <strong class="card-title">Report Today</strong>
-</div>
-
 <div class="card-body">
     <table class="table table-striped">
         <thead>
@@ -70,9 +65,9 @@
             <td>Jumlah Total</td>
             <td></td>
             <td></td>
-            <td th:text="${scoreSatisfy}">3</td>
-            <td th:text="${scoreDissatisfy}">3</td>
-            <td th:text="${countAll}">3</td>
+            <td th:text="${#aggregates.sum(scores.![satisfy])}">1</td>
+            <td th:text="${#aggregates.sum(scores.![dissatisfy])}">1</td>
+            <td th:text="${#aggregates.sum(scores.![total])}">3</td>
             <td></td>
         </tr>
         </tbody>
