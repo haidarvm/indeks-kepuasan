@@ -46,7 +46,7 @@ public  class ReportController {
     @RequestMapping("/{departmentId}")
     public String reportByDepartment(@PathVariable Long departmentId, Model model){
         model.addAttribute("scores", scoreRepository.generalReportByDepartment(departmentId));
-        model.addAttribute("totals", scoreRepository.countReportByDepartment(departmentId));
+        model.addAttribute("totals", scoreRepository.summaryReportByDepartment(departmentId));
         model.addAttribute("department", departmentRepository.findById(departmentId));
         return "report/department";
     }
@@ -54,7 +54,7 @@ public  class ReportController {
     @RequestMapping("detail/{departmentId}")
     public String reportDetailByDepartment(@PathVariable Long departmentId, Model model){
         model.addAttribute("scores", scoreRepository.generalReportByDepartment(departmentId));
-        model.addAttribute("totals", scoreRepository.countReportByDepartment(departmentId));
+        model.addAttribute("totals", scoreRepository.summaryReportByDepartment(departmentId));
         model.addAttribute("department", departmentRepository.findById(departmentId));
         return "report/department";
     }

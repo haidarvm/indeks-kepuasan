@@ -43,6 +43,6 @@ public class Department extends BaseEntity {
     private String dissatisfyImg;
 
     @Column(name = "device_id")
-    private String deviceIid;
+    private String deviceId;
 
 }
