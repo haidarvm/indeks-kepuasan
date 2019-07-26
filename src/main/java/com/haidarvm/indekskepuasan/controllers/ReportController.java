@@ -1,7 +1,7 @@
 package com.haidarvm.indekskepuasan.controllers;
 
 
-import com.google.gson.Gson;
+import com.alibaba.fastjson.JSON;
 import com.haidarvm.indekskepuasan.model.Score;
 import com.haidarvm.indekskepuasan.repositories.DepartmentRepository;
 import com.haidarvm.indekskepuasan.repositories.ScoreRepository;
@@ -61,10 +61,6 @@ public  class ReportController {
 
     @PostMapping("/report_filter")
     public String reportFilter(@RequestParam("department_id") Long departmentId, @RequestParam(value = "startDate") String startDate, @RequestParam(value = "endDate") String endDate) {
-        Gson gson = new Gson();
-        logger.debug("hello this startDate {}", startDate);
-        logger.debug("hello this endDate {}", gson.toJson(endDate));
-        logger.debug("department id {}", gson.toJson(departmentId));
         if(departmentId == null) {
             return "redirect:/report/report_by/" + 0L + "/" + startDate + "/" + endDate;
         } else {
@@ -75,7 +71,8 @@ public  class ReportController {
     @RequestMapping("/{departmentId}")
     public String reportByDepartment(@PathVariable Long departmentId, Model model){
         model.addAttribute("scores", scoreRepository.generalReportByDepartment(departmentId));
-        logger.debug("Here's total result {} " , scoreRepository.countReportByDepartment(departmentId).getTotal());
+        String jsonReport = JSON.toJSONString(scoreRepository.generalReportByDepartment(departmentId));
+        logger.debug("this alibaba json {}", jsonReport);
         model.addAttribute("department", departmentRepository.findById(departmentId));
         return "report/department";
     }

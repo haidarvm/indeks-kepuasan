@@ -6,7 +6,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
-@RepositoryRestResource(collectionResourceRel = "score", path = "api/score")
+@RepositoryRestResource(collectionResourceRel = "score", path = "api/department")
 public interface DepartmentRepository extends JpaRepository<Department, Long> {
 
     List<Department> findByAvailable(Integer available);

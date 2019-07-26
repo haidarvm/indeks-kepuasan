@@ -28,15 +28,40 @@
             <td th:text="${score.dissatisfy}">1</td>
             <td th:text="${score.total}">3</td>
         </tr>
-        <tr >
+        <tr>
             <td>Jumlah Total</td>
             <td></td>
-            <td th:text="${#aggregates.sum(scores.![satisfy])}">1</td>
-            <td th:text="${#aggregates.sum(scores.![dissatisfy])}">1</td>
-            <td th:text="${#aggregates.sum(scores.![total])}">3</td>
+            <td><input th:value="${#aggregates.sum(scores.![satisfy])}" type="text" id="totalSatisfy" disabled></td>
+            <td><input th:value="${#aggregates.sum(scores.![dissatisfy])}" type="text" id="totalDissatisfy" disabled></td>
+            <td><input th:value="${#aggregates.sum(scores.![total])}" type="text" id="total" disabled></td>
+        </tr>
+        <tr>
+            <td>Persentase %</td>
+            <td></td>
+            <td><input type="text" id="satisfyPercentage" disabled></td>
+            <td><input type="text" id="dissatisfyPercentage" disabled></td>
+            <td><input type="text" id="totalPercentage" disabled></td>
         </tr>
         </tbody>
     </table>
 </div>
+
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    (function ($) {
+        $(document).ready(function () {
+            $("#satisfyPercentage").val(percentage($("#totalSatisfy").val(), $("#total").val()));
+            $("#dissatisfyPercentage").val(percentage($("#totalDissatisfy").val(), $("#total").val()));
+            $("#totalPercentage").val(percentage($("#total").val(), $("#total").val()));
+
+            function percentage(partialValue, totalValue) {
+                var per = (100 * partialValue) / totalValue;
+                return per.toFixed(1);
+            }
+        });
+    })(jQuery);
+    /*]]>*/
+</script>
 </body>
 </html>
