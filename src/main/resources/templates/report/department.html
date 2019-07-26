@@ -32,7 +32,8 @@
             <td>Jumlah Total</td>
             <td></td>
             <td><input th:value="${#aggregates.sum(scores.![satisfy])}" type="text" id="totalSatisfy" disabled></td>
-            <td><input th:value="${#aggregates.sum(scores.![dissatisfy])}" type="text" id="totalDissatisfy" disabled></td>
+            <td><input th:value="${#aggregates.sum(scores.![dissatisfy])}" type="text" id="totalDissatisfy" disabled>
+            </td>
             <td><input th:value="${#aggregates.sum(scores.![total])}" type="text" id="total" disabled></td>
         </tr>
         <tr>
@@ -63,5 +64,39 @@
     })(jQuery);
     /*]]>*/
 </script>
+<script>
+    window.onload = function () {
+
+        (function ($) {
+            $(document).ready(function () {
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    theme: "light2", // "light1", "light2", "dark1", "dark2"
+                    exportEnabled: true,
+                    animationEnabled: true,
+                    title: {
+                        text: "Grafik Indeks Kepuasan"
+                    },
+                    data: [{
+                        type: "pie",
+                        startAngle: 25,
+                        toolTipContent: "<b>{label}</b>: {y}%",
+                        showInLegend: "true",
+                        legendText: "{label}",
+                        indexLabelFontSize: 16,
+                        indexLabel: "{label} - {y}%",
+                        dataPoints: [
+                            {y: $("#satisfyPercentage").val(), label: "Puas"},
+                            {y: $("#dissatisfyPercentage").val(), label: "Tidak Puas"}
+                        ]
+                    }]
+                });
+                chart.render();
+            });
+        })(jQuery);
+
+    }
+</script>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script th:src="|/js/canvasjs.min.js|"></script>
 </body>
 </html>
