@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Controller
 @RequestMapping("/report")
@@ -44,7 +45,9 @@ public  class ReportController {
         LocalDateTime endDate = LocalDateTime.parse(LocalDate.now() + " 23:59:59", formatter);
         model.addAttribute("score", new Score());
         model.addAttribute("departments", departmentRepository.findAll());
-        model.addAttribute("scores", scoreRepository.generalReport());
+        List<Score> genReport = scoreRepository.generalReport();
+        model.addAttribute("scores", genReport);
+        logger.debug("find all query {}", JSON.toJSONString(genReport.get(1)));
         return "report/index";
     }
 
@@ -73,6 +76,7 @@ public  class ReportController {
         model.addAttribute("scores", scoreRepository.generalReportByDepartment(departmentId));
         String jsonReport = JSON.toJSONString(scoreRepository.generalReportByDepartment(departmentId));
         logger.debug("this alibaba json {}", jsonReport);
+        logger.debug("find all query {}", JSON.toJSONString(scoreRepository.countReportByDepartment(1L)));
         model.addAttribute("department", departmentRepository.findById(departmentId));
         return "report/department";
     }

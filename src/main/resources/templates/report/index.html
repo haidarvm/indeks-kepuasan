@@ -52,6 +52,8 @@
         </tr>
         </thead>
         <tbody>
+
+
         <tr th:each="score : ${scores}">
             <td th:text="${score.department.name}">Layanan Gigi</td>
             <td th:text="${score.created.getDayOfWeek()}">Monday</td>

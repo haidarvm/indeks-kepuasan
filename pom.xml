@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.6.RELEASE</version>
+        <version>LATEST</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.haidarvm</groupId>
@@ -16,8 +16,8 @@
 
     <properties>
         <java.version>11</java.version>
-        <webjars-bootstrap.version>4.3.1</webjars-bootstrap.version>
-        <webjars-jquery.version>3.4.1</webjars-jquery.version>
+<!--        <webjars-bootstrap.version>4.3.1</webjars-bootstrap.version>-->
+<!--        <webjars-jquery.version>3.4.1</webjars-jquery.version>-->
     </properties>
 
     <dependencies>
@@ -72,9 +72,18 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.58</version>
+            <version>LATEST</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>ooxml-schemas</artifactId>
+            <version>LATEST</version>
+        </dependency>
         <!-- webjars -->
         <dependency>
             <groupId>org.webjars</groupId>
@@ -83,12 +92,12 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>jquery</artifactId>
-            <version>${webjars-jquery.version}</version>
+            <version>LATEST</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>${webjars-bootstrap.version}</version>
+            <version>LATEST</version>
         </dependency>
         <!-- end of webjars -->
 

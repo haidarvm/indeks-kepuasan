@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.annotation.Transient;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -33,10 +34,13 @@ public class Score extends BaseEntity {
     @Column(name = "device_id")
     private String deviceId;
 
+    @Transient
     public Integer total;
 
+    @Transient
     public Integer satisfy;
 
+    @Transient
     public Integer dissatisfy;
 
 }
