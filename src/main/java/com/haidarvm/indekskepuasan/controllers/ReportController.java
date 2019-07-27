@@ -1,7 +1,6 @@
 package com.haidarvm.indekskepuasan.controllers;
 
 
-import com.alibaba.fastjson.JSON;
 import com.haidarvm.indekskepuasan.model.Score;
 import com.haidarvm.indekskepuasan.repositories.DepartmentRepository;
 import com.haidarvm.indekskepuasan.repositories.ScoreRepository;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -25,13 +22,12 @@ import java.util.List;
 public  class ReportController {
 
 
-    @Value("${welcome.message}")
-    private String message;
-
 
     private static final Logger logger = LoggerFactory.getLogger(ReportController.class);
     private final ScoreRepository scoreRepository;
     private final DepartmentRepository departmentRepository;
+
+    private String title = "Hello Haidar";
 
     public ReportController(ScoreRepository scoreRepository, DepartmentRepository departmentRepository) {
         this.scoreRepository = scoreRepository;
@@ -41,22 +37,25 @@ public  class ReportController {
     @RequestMapping("")
     public String generalReport(Model model){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime startDate = LocalDateTime.parse(LocalDate.now() + " 00:00:00", formatter);
-        LocalDateTime endDate = LocalDateTime.parse(LocalDate.now() + " 23:59:59", formatter);
         model.addAttribute("score", new Score());
         model.addAttribute("departments", departmentRepository.findAll());
         List<Score> genReport = scoreRepository.generalReport();
+        logger.debug("report generated when it's null by new day {}" , genReport.size());
         model.addAttribute("scores", genReport);
-        logger.debug("find all query {}", JSON.toJSONString(genReport.get(1)));
         return "report/index";
     }
 
-    @RequestMapping("/report_by/{departmentId}/{startDate}/{endDate}")
+    @RequestMapping("/by/{departmentId}/{startDate}/{endDate}")
     public String reportBy(@PathVariable Long departmentId, @PathVariable String startDate, @PathVariable String endDate, Model model){
         model.addAttribute("departments", departmentRepository.findAll());
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
+        model.addAttribute("deptId", departmentId);
+        model.addAttribute("title", "Welcome Guest");
         if(departmentId == 0L) {
             model.addAttribute("scores", scoreRepository.generalReportByDate(startDate, endDate));
         } else {
+            model.addAttribute("deptName", departmentRepository.findById(departmentId).get().getName());
             model.addAttribute("scores", scoreRepository.generalReportByDepartmentIdAndByDate(departmentId, startDate, endDate));
         }
         return "report/index";
@@ -64,19 +63,20 @@ public  class ReportController {
 
     @PostMapping("/report_filter")
     public String reportFilter(@RequestParam("department_id") Long departmentId, @RequestParam(value = "startDate") String startDate, @RequestParam(value = "endDate") String endDate) {
-        if(departmentId == null) {
-            return "redirect:/report/report_by/" + 0L + "/" + startDate + "/" + endDate;
+        if(null == departmentId) {
+            return "redirect:/report/by/" + 0L + "/" + startDate + "/" + endDate;
         } else {
-            return "redirect:/report/report_by/" + departmentId + "/" + startDate + "/" + endDate;
+            return "redirect:/report/by/" + departmentId + "/" + startDate + "/" + endDate;
         }
     }
 
     @RequestMapping("/{departmentId}")
     public String reportByDepartment(@PathVariable Long departmentId, Model model){
+        String getDeptName = ((departmentId != 0)) ? departmentRepository.findById(departmentId).get().getName() : null;
+        String deptName =  ((getDeptName != null)) ? getDeptName : "Semua Layanan";
+        logger.debug("Get Department Name {}", deptName);
+        model.addAttribute("deptName ", deptName);
         model.addAttribute("scores", scoreRepository.generalReportByDepartment(departmentId));
-        String jsonReport = JSON.toJSONString(scoreRepository.generalReportByDepartment(departmentId));
-        logger.debug("this alibaba json {}", jsonReport);
-        logger.debug("find all query {}", JSON.toJSONString(scoreRepository.countReportByDepartment(1L)));
         model.addAttribute("department", departmentRepository.findById(departmentId));
         return "report/department";
     }

@@ -49,9 +49,9 @@
 
 
 <script th:inline="javascript">
-    /*<![CDATA[*/
     (function ($) {
         $(document).ready(function () {
+            /*<![CDATA[*/
             $("#satisfyPercentage").val(percentage($("#totalSatisfy").val(), $("#total").val()));
             $("#dissatisfyPercentage").val(percentage($("#totalDissatisfy").val(), $("#total").val()));
             $("#totalPercentage").val(percentage($("#total").val(), $("#total").val()));
@@ -60,21 +60,22 @@
                 var per = (100 * partialValue) / totalValue;
                 return per.toFixed(1);
             }
+            /*]]>*/
         });
     })(jQuery);
-    /*]]>*/
 </script>
-<script>
+<script th:inline="javascript">
     window.onload = function () {
 
         (function ($) {
             $(document).ready(function () {
+                /*<![CDATA[*/
                 var chart = new CanvasJS.Chart("chartContainer", {
                     theme: "light2", // "light1", "light2", "dark1", "dark2"
                     exportEnabled: true,
                     animationEnabled: true,
                     title: {
-                        text: "Grafik Indeks Kepuasan"
+                        text: "Grafik Indeks Kepuasan " + /*[[${department.get().name}]]*/ ""
                     },
                     data: [{
                         type: "pie",
@@ -91,6 +92,7 @@
                     }]
                 });
                 chart.render();
+                /*]]>*/
             });
         })(jQuery);
 
