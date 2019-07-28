@@ -7,7 +7,7 @@
 <body>
 
 <div class="card-header">
-    <strong class="card-title"><span th:text="${deptName}"></span> Report By Date </strong>
+    <strong class="card-title"><span th:text="${deptName}"></span> Report By Date Start Date <span th:text="${startDate}"></span> to <span th:text="${endDate}"></span> </strong>
 </div>
 
 <div class="card-body">
@@ -61,7 +61,7 @@
             <td th:text="${score.satisfy}">1</td>
             <td th:text="${score.dissatisfy}">1</td>
             <td th:text="${score.total}">3</td>
-            <td><a th:href="@{'/report/' + ${score.department.id}}"><button type="button" class="btn btn-success btn-sm"><i class="fa fa-magic"></i>&nbsp; View</button></a></td>
+            <td><a th:href="@{'/report/by/' + ${score.department.id} + '/' + ${startDate} + '/' + ${endDate}}"><button type="button" class="btn btn-success btn-sm"><i class="fa fa-magic"></i>&nbsp; View</button></a></td>
         </tr>
         <tr>
             <td>Jumlah Total</td>

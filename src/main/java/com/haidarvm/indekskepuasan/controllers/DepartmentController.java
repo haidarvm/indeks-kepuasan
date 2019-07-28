@@ -3,6 +3,8 @@ package com.haidarvm.indekskepuasan.controllers;
 
 import com.haidarvm.indekskepuasan.model.Department;
 import com.haidarvm.indekskepuasan.repositories.DepartmentRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +20,7 @@ import javax.validation.Valid;
 public class DepartmentController {
     private static final String VIEWS_DEPARTMENT_CREATE_OR_UPDATE_FORM = "department/form";
 
+    private static final Logger logger = LoggerFactory.getLogger(DepartmentController.class);
     private final DepartmentRepository departmentRepository;
 
     public DepartmentController(DepartmentRepository departmentRepository) {
@@ -27,6 +30,7 @@ public class DepartmentController {
     @RequestMapping({"", "index"})
     public String listDepartment(Model model) {
         model.addAttribute("departments", departmentRepository.findAll());
+        logger.debug("mana yaa Allah Ryzen 3900x  {}", departmentRepository.findById(1L).get().getTextService());
         return "department/index";
     }
 

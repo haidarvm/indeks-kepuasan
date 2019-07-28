@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -36,11 +38,17 @@ public  class ReportController {
 
     @RequestMapping("")
     public String generalReport(Model model){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(); // this object contains the current date value
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String today = formatter.format(date);
+        System.out.println(today);
         model.addAttribute("score", new Score());
+        model.addAttribute("startDate", today);
+        model.addAttribute("endDate", today);
+        model.addAttribute("deptId", "0");
         model.addAttribute("departments", departmentRepository.findAll());
         List<Score> genReport = scoreRepository.generalReport();
-        logger.debug("report generated when it's null by new day {}" , genReport.size());
+        logger.debug("report generated when it's null try hot swap please third try {}" , genReport.size());
         model.addAttribute("scores", genReport);
         return "report/index";
     }
@@ -70,16 +78,6 @@ public  class ReportController {
         }
     }
 
-    @RequestMapping("/{departmentId}")
-    public String reportByDepartment(@PathVariable Long departmentId, Model model){
-        String getDeptName = ((departmentId != 0)) ? departmentRepository.findById(departmentId).get().getName() : null;
-        String deptName =  ((getDeptName != null)) ? getDeptName : "Semua Layanan";
-        logger.debug("Get Department Name {}", deptName);
-        model.addAttribute("deptName ", deptName);
-        model.addAttribute("scores", scoreRepository.generalReportByDepartment(departmentId));
-        model.addAttribute("department", departmentRepository.findById(departmentId));
-        return "report/department";
-    }
 
     @RequestMapping("detail/{departmentId}")
     public String reportDetailByDepartment(@PathVariable Long departmentId, Model model){

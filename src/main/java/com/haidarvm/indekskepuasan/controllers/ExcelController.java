@@ -49,13 +49,15 @@ public class ExcelController {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         workbook = createWorkbook(departmentId, startDate, endDate);
         workbook.write(out);
-
-        String deptName = departmentRepository.findById(departmentId).get().getName();
-        logger.debug("Dept Name adalah {}" , deptName);
+        String deptName = "All";
+        if (departmentId != 0L) {
+            deptName = departmentRepository.findById(departmentId).get().getName();
+        }
+        logger.debug("Dept Name adalah {}", deptName);
         byte[] documentContent = out.toByteArray();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
-        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"Laporan_"+deptName+"_Pertanggal_" +startDate + "_" + endDate +".xlsx\"");
+        headers.set(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"Laporan_" + deptName + "_Pertanggal_" + startDate + "_" + endDate + ".xlsx\"");
         headers.setContentLength(documentContent.length);
         return new ResponseEntity<byte[]>(documentContent, headers, HttpStatus.OK);
     }
@@ -65,9 +67,12 @@ public class ExcelController {
         CreationHelper createHelper = workbook.getCreationHelper();
         workbook.getCreationHelper().createFormulaEvaluator().evaluateAll();
         XSSFSheet sheet = wb.createSheet("Laporan Per Tanggal");
-
-        List<Score> scores = scoreRepository.generalReportByDepartmentIdAndByDate(departmentId, startDate, endDate);
-
+        List<Score> scores = null;
+        if (departmentId == 0L) {
+            scores = scoreRepository.generalReportByDate(startDate, endDate);
+        } else {
+            scores = scoreRepository.generalReportByDepartmentIdAndByDate(departmentId, startDate, endDate);
+        }
         writeHeaders(wb, sheet);
 
         int rowIdx = 1;
@@ -85,13 +90,12 @@ public class ExcelController {
             row.createCell(3).setCellValue(totalSatisfyScore);
             row.createCell(4).setCellValue(totalDiSatisfyScore);
             row.createCell(5).setCellValue(totalScore);
-            totalCount +=  totalScore;
+            totalCount += totalScore;
             totalSatisfy += totalSatisfyScore;
             totalDissatisfy += totalDiSatisfyScore;
-            logger.debug("total score added {}", totalCount);
         }
         logger.debug("last row {}", rowIdx);
-        String strFormula= "SUM(D2:D"+rowIdx+")";
+        String strFormula = "SUM(D2:D" + rowIdx + ")";
         XSSFRow totalRow = sheet.createRow(rowIdx + 1);
         totalRow.createCell(0).setCellValue("Jumlah Total");
         totalRow.createCell(3).setCellValue(totalSatisfy);
@@ -108,7 +112,7 @@ public class ExcelController {
     }
 
     private void writeHeaders(XSSFWorkbook workbook, XSSFSheet sheet) {
-        String[] headerCol = {"Layanan", "Hari","Tanggal","Puas","Tidak Puas","Total"};
+        String[] headerCol = {"Layanan", "Hari", "Tanggal", "Puas", "Tidak Puas", "Total"};
         XSSFRow headerRow = sheet.createRow(0);
         // Header
         for (int col = 0; col < headerCol.length; col++) {
@@ -136,10 +140,11 @@ public class ExcelController {
         return style;
     }
 
-    private Float calcPercentage(Integer partialValue, Integer totalValue) {
+    private String calcPercentage(Integer partialValue, Integer totalValue) {
         float per = (float) (100 * partialValue) / totalValue;
-        logger.debug("Percentage get {} ", per);
-        return per;
+        String perString = String.format ("%.2f", per);
+        logger.debug("Percentage get {} ", perString);
+        return perString;
     }
 
 
