@@ -2,17 +2,22 @@ package com.haidarvm.indekskepuasan.restControllers;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.haidarvm.indekskepuasan.controllers.DepartmentController;
 import com.haidarvm.indekskepuasan.model.Score;
 import com.haidarvm.indekskepuasan.repositories.ScoreRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
-
 
 
 @RestController
@@ -20,6 +25,7 @@ import java.util.Map;
 public class ScoreRestController {
 
     private final ScoreRepository scoreRepository;
+    private static final Logger logger = LoggerFactory.getLogger(ScoreRestController.class);
 
     public ScoreRestController(ScoreRepository scoreRepository) {
         this.scoreRepository = scoreRepository;
@@ -41,8 +47,9 @@ public class ScoreRestController {
 //    @RequestMapping(value="/score/insert", method = RequestMethod.POST, produces = "application/json", consumes = MediaType.APPLICATION_JSON_VALUE)
 //    @ResponseBody
     @PostMapping("/score")
-    Score newScore(@RequestBody Score newScore)  throws JsonProcessingException {
+    Score newScore(@RequestBody Score newScore) throws IOException {
         ObjectMapper mapper=new ObjectMapper();
+        logger.debug("Request {}", mapper.writeValueAsString(newScore));
         System.out.println("Object mapper "+mapper.writeValueAsString(newScore));
         return scoreRepository.save(newScore);
     }

@@ -48,7 +48,7 @@ public  class ReportController {
         model.addAttribute("deptId", "0");
         model.addAttribute("departments", departmentRepository.findAll());
         List<Score> genReport = scoreRepository.generalReport();
-        logger.debug("report generated when it's null try hot swap please third try {}" , genReport.size());
+        logger.debug("report generated when it's  try hot swap -- good Second --- try {}" , genReport.size());
         model.addAttribute("scores", genReport);
         return "report/index";
     }

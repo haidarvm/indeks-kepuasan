@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.haidarvm</groupId>
     <artifactId>indeks-kepuasan</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.2-SNAPSHOT</version>
     <name>indeks-kepuasan</name>
     <description>haidarvm Indeks Kepuasan Project</description>
 
