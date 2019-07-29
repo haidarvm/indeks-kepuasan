@@ -18,16 +18,17 @@ public class DepartmentRestController {
         this.departmentRepository = departmentRepository;
     }
 
-    @PutMapping("/department/{id}")
-    Department updateDepartment(@RequestBody Department newDepartment, @PathVariable Long id) {
-        return departmentRepository.findById(id)
+    @PutMapping("/department")
+    Department updateDepartment(@RequestBody Department newDepartment) {
+        Long deptId = newDepartment.getId();
+        return departmentRepository.findById(deptId)
                 .map(department -> {
                     department.setDeviceId(newDepartment.getDeviceId());
                     department.setAvailable(newDepartment.getAvailable());
                     return departmentRepository.save(department);
                 })
                 .orElseGet(() -> {
-                    newDepartment.setId(id);
+                    newDepartment.setId(deptId);
                     return departmentRepository.save(newDepartment);
                 });
     }
