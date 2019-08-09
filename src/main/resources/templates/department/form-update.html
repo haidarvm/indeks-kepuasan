@@ -4,10 +4,10 @@
 
 <div class="card">
     <div class="card-header">
-        <strong>Update Department klo pake Ryzen 3900x gokil abis</strong>
+        <strong>Update Department</strong>
     </div>
     <div class="card-body card-block">
-        <form th:object="${department}" action="#" method="post" class="form-horizontal">
+        <form th:object="${department}" action="#" method="post" enctype="multipart/form-data" class="form-horizontal">
             <div class="row form-group">
                 <div class="col col-md-3"><label for="name" class=" form-control-label">Email</label></div>
                 <div class="col-12 col-md-9"><input th:field="*{name}" type="text" id="name" name="name" class="form-control"></div>
@@ -31,9 +31,12 @@
                 <div class="col-12 col-md-9"><input th:field="*{bgColor}" type="text" id="bgColor" name="bgColor" class="form-control"></div>
             </div>
             <div class="row form-group">
-                <div class="col col-md-3"><label for="deviceId" class=" form-control-label">Available</label>
-                </div>
+                <div class="col col-md-3"><label for="deviceId" class=" form-control-label">Available</label></div>
                 <div class="col-12 col-md-9"><input th:field="*{deviceId}" type="text" id="deviceId" name="deviceId" class="form-control"></div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3"><label for="deviceId" class=" form-control-label">Satisfy Img</label></div>
+                <div class="col-12 col-md-9"><input th:field="*{deviceId}" type="file" id="satisfyImg" name="satisfyImg" class="form-control"></div>
             </div>
             <div class="form-actions form-group">
                 <button type="submit" class="btn btn-primary btn-sm">Submit</button>

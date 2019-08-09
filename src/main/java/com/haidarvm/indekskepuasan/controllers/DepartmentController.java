@@ -1,17 +1,19 @@
 package com.haidarvm.indekskepuasan.controllers;
 
 
+import com.haidarvm.indekskepuasan.Services.StorageService;
 import com.haidarvm.indekskepuasan.model.Department;
 import com.haidarvm.indekskepuasan.repositories.DepartmentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -22,15 +24,19 @@ public class DepartmentController {
 
     private static final Logger logger = LoggerFactory.getLogger(DepartmentController.class);
     private final DepartmentRepository departmentRepository;
+    private final StorageService storageService;
 
-    public DepartmentController(DepartmentRepository departmentRepository) {
+
+    @Autowired
+    public DepartmentController(DepartmentRepository departmentRepository, StorageService storageService) {
         this.departmentRepository = departmentRepository;
+        this.storageService = storageService;
     }
 
     @RequestMapping({"", "index"})
     public String listDepartment(Model model) {
         model.addAttribute("departments", departmentRepository.findAll());
-        logger.debug("mana yaa Allah Ryzen 3900x  {}", departmentRepository.findById(1L).get().getTextService());
+        logger.debug("mana yaa Allah Ryzen 3900x  terbaik please yaa sangat puas yaa Allah {}", departmentRepository.findById(1L).get().getTextService());
         return "department/index";
     }
 
@@ -58,13 +64,18 @@ public class DepartmentController {
     }
 
     @PostMapping("update/{departmentId}")
-    public String processUpdateDepartmentForm(@Valid Department department, BindingResult result, @PathVariable Long departmentId) {
+    public String processUpdateDepartmentForm(@Valid Department department, BindingResult result, @PathVariable Long departmentId, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         if(result.hasErrors()) {
             return "department/form-update";
         } else {
+            storageService.store(file);
+            redirectAttributes.addFlashAttribute("message",
+                    "You successfully uploaded " + file.getOriginalFilename() + "!");
             department.setId(departmentId);
             departmentRepository.save(department);
             return "redirect:/department";
         }
     }
+
+
 }
