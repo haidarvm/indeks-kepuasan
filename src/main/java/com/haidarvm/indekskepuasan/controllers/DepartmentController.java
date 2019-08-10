@@ -1,21 +1,23 @@
 package com.haidarvm.indekskepuasan.controllers;
 
 
-import com.haidarvm.indekskepuasan.Services.StorageService;
 import com.haidarvm.indekskepuasan.model.Department;
 import com.haidarvm.indekskepuasan.repositories.DepartmentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
 
 @Controller
 @RequestMapping("/department")
@@ -24,19 +26,19 @@ public class DepartmentController {
 
     private static final Logger logger = LoggerFactory.getLogger(DepartmentController.class);
     private final DepartmentRepository departmentRepository;
-    private final StorageService storageService;
-
+    //    private final StorageService storageService;
+    private static String BASE_URL = System.getProperty("user.dir");
+    private static String UPLOADED_FOLDER = BASE_URL + "/dept/";
 
     @Autowired
-    public DepartmentController(DepartmentRepository departmentRepository, StorageService storageService) {
+    public DepartmentController(DepartmentRepository departmentRepository) {
         this.departmentRepository = departmentRepository;
-        this.storageService = storageService;
     }
 
     @RequestMapping({"", "index"})
     public String listDepartment(Model model) {
         model.addAttribute("departments", departmentRepository.findAll());
-        logger.debug("mana yaa Allah Ryzen 3900x  terbaik please yaa sangat puas yaa Allah {}", departmentRepository.findById(1L).get().getTextService());
+//        logger.debug("mana yaa Allah Ryzen 3900x  terbaik please yaa sangat puas yaa Allah {}", departmentRepository.findById(1L).get().getTextService());
         return "department/index";
     }
 
@@ -49,7 +51,7 @@ public class DepartmentController {
 
     @PostMapping("/insert")
     public String processInsertDepartment(@Valid Department department, BindingResult result) {
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             return "department/form-insert";
         } else {
             Department savedDepartment = departmentRepository.save(department);
@@ -60,17 +62,33 @@ public class DepartmentController {
     @GetMapping("update/{departmentId}")
     public String getDepartmentForm(@PathVariable Long departmentId, Model model) {
         model.addAttribute("department", departmentRepository.findById(departmentId));
+        model.addAttribute("id", departmentId);
         return "department/form-update";
     }
 
     @PostMapping("update/{departmentId}")
-    public String processUpdateDepartmentForm(@Valid Department department, BindingResult result, @PathVariable Long departmentId, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
-        if(result.hasErrors()) {
+    public String processUpdateDepartmentForm(@Valid Department department, BindingResult result, @PathVariable Long departmentId, MultipartHttpServletRequest multipartRequest, RedirectAttributes redirectAttributes) throws IOException {
+        if (result.hasErrors()) {
             return "department/form-update";
         } else {
-            storageService.store(file);
-            redirectAttributes.addFlashAttribute("message",
-                    "You successfully uploaded " + file.getOriginalFilename() + "!");
+
+            Iterator<String> it = multipartRequest.getFileNames();
+
+            while (it.hasNext()) {
+                String fileControlName = it.next();
+                MultipartFile srcFile = multipartRequest.getFile(fileControlName);
+                String uploadName = srcFile.getName();
+                logger.debug("Upload filename {}", uploadName);
+                System.out.println(uploadName);
+                String satisfaction = "satisfy".equals(uploadName) ? "satisfy/" : "dissatisfy/";
+                logger.debug(satisfaction);
+                String destFilePath = UPLOADED_FOLDER + satisfaction + departmentId + ".png";
+                File destFile = new File(destFilePath);
+                srcFile.transferTo(destFile);
+                System.out.println(destFilePath);
+            }
+
+            System.out.println(System.getProperty("user.dir"));
             department.setId(departmentId);
             departmentRepository.save(department);
             return "redirect:/department";
