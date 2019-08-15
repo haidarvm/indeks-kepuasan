@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
@@ -60,9 +61,12 @@ public class DepartmentController {
     }
 
     @GetMapping("update/{departmentId}")
-    public String getDepartmentForm(@PathVariable Long departmentId, Model model) {
+    public String getDepartmentForm(@PathVariable Long departmentId, Model model, HttpServletRequest request) {
         model.addAttribute("department", departmentRepository.findById(departmentId));
         model.addAttribute("id", departmentId);
+        String baseUrl = "http://" + request.getServerName() + ":" + request.getServerPort() + "/dept";
+//        System.out.println("baseurl =" + baseUrl);
+        model.addAttribute("baseurl", baseUrl);
         return "department/form-update";
     }
 
@@ -71,7 +75,6 @@ public class DepartmentController {
         if (result.hasErrors()) {
             return "department/form-update";
         } else {
-
             Iterator<String> it = multipartRequest.getFileNames();
 
             while (it.hasNext()) {
@@ -79,13 +82,12 @@ public class DepartmentController {
                 MultipartFile srcFile = multipartRequest.getFile(fileControlName);
                 String uploadName = srcFile.getName();
                 logger.debug("Upload filename {}", uploadName);
-                System.out.println(uploadName);
+//                System.out.println(uploadName);
                 String satisfaction = "satisfy".equals(uploadName) ? "satisfy/" : "dissatisfy/";
-                logger.debug(satisfaction);
                 String destFilePath = UPLOADED_FOLDER + satisfaction + departmentId + ".png";
                 File destFile = new File(destFilePath);
                 srcFile.transferTo(destFile);
-                System.out.println(destFilePath);
+//                System.out.println(destFilePath);
             }
 
             System.out.println(System.getProperty("user.dir"));

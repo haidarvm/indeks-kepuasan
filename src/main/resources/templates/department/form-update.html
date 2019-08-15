@@ -35,18 +35,15 @@
                 <div class="col-12 col-md-9"><input type="file" name="satisfy" class="form-control"></div>
             </div>
             <div class="row form-group">
-                <div class="col col-md-3"><label class=" form-control-label">Satisfy Img</label></div>
+                <div class="col col-md-3"><label class=" form-control-label">Dissatisfy Img</label></div>
                 <div class="col-12 col-md-9"><input type="file" name="dissatisfy" class="form-control"></div>
-            </div>
-            <div class="row form-group">
-                <div class="col col-md-3"><label class=" form-control-label">Satisfy Img Local</label></div>
             </div>
             <div class="form-actions form-group">
                 <button type="submit" class="btn btn-primary btn-sm">Submit</button>
                 <a href="/department" class="btn btn-danger btn-sm">Cancel</a>
             </div>
-            <div class="col-12 col-md-9"><img th:src="@{/images/dept/dissatisfy/__${id}__.png}"  alt="springpic"></div>
-            <div class="col-12 col-md-9"><img th:src="@{/images/dept/satisfy/__${id}__.png}"  alt="springpic"></div>
+            <div class="col-12 col-md-9">Satisfy Img: <img th:src="@{${baseurl + '/satisfy/' + id + '.png'}}"  alt="satisfy"></div>
+            <div class="col-12 col-md-9">Dissatisfy Img: <img th:src="@{${baseurl + '/dissatisfy/' + id + '.png'}}"  alt="dissatisfy"></div>
         </form>
     </div>
 </div>
