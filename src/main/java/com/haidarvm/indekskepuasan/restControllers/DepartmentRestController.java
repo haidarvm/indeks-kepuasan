@@ -33,9 +33,13 @@ public class DepartmentRestController {
                 });
     }
 
-    @GetMapping("/department")
-    List<Department> selectAvailableDepartment() {
-        return departmentRepository.findByAvailable(1);
+    @GetMapping("/department/{departmentId}")
+    List<Department> selectAvailableDepartment(@PathVariable Long departmentId) {
+        if(departmentId.equals("")) {
+            return departmentRepository.findByAvailable(1);
+        } else {
+            return departmentRepository.findAllById(departmentId);
+        }
     }
 
 }

@@ -75,22 +75,21 @@ public class DepartmentController {
         if (result.hasErrors()) {
             return "department/form-update";
         } else {
-            Iterator<String> it = multipartRequest.getFileNames();
+                Iterator<String> it = multipartRequest.getFileNames();
 
-            while (it.hasNext()) {
-                String fileControlName = it.next();
-                MultipartFile srcFile = multipartRequest.getFile(fileControlName);
-                String uploadName = srcFile.getName();
-                logger.debug("Upload filename {}", uploadName);
-//                System.out.println(uploadName);
-                String satisfaction = "satisfy".equals(uploadName) ? "satisfy/" : "dissatisfy/";
-                String destFilePath = UPLOADED_FOLDER + satisfaction + departmentId + ".png";
-                File destFile = new File(destFilePath);
-                srcFile.transferTo(destFile);
-//                System.out.println(destFilePath);
-            }
+                while (it.hasNext()) {
+                    String fileControlName = it.next();
+                    MultipartFile srcFile = multipartRequest.getFile(fileControlName);
+                    if(srcFile.getSize() > 1) {
+                        String uploadName = srcFile.getName();
+                        logger.debug("Upload filename {}", uploadName);
+                        String satisfaction = "satisfy".equals(uploadName) ? "satisfy/" : "dissatisfy/";
+                        String destFilePath = UPLOADED_FOLDER + satisfaction + departmentId + ".png";
+                        File destFile = new File(destFilePath);
+                        srcFile.transferTo(destFile);
+                    }
+                }
 
-            System.out.println(System.getProperty("user.dir"));
             department.setId(departmentId);
             departmentRepository.save(department);
             return "redirect:/department";
