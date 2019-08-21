@@ -38,6 +38,9 @@ public class Score extends BaseEntity {
     public Integer total;
 
     @Transient
+    public LocalDateTime latest;
+
+    @Transient
     public Integer satisfy;
 
     @Transient

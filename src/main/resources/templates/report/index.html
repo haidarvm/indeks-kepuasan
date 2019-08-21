@@ -44,7 +44,7 @@
         <tr>
             <th>Layanan</th>
             <th>Hari</th>
-            <th>Tanggal</th>
+            <th>Tanggal Jam</th>
             <th>Puas</th>
             <th>Tidak Puas</th>
             <th>Total</th>
@@ -57,11 +57,11 @@
         <tr th:each="score : ${scores}">
             <td th:text="${score.department.name}">Layanan Gigi</td>
             <td th:text="${score.created.getDayOfWeek()}">Monday</td>
-            <td th:text="${#temporals.format(score.created,'dd-MM-yyyy')}">2019-01-01</td>
+            <td th:text="${#temporals.format(score.latest, 'dd-MM-yyyy HH:mm')}">1</td>
             <td th:text="${score.satisfy}">1</td>
             <td th:text="${score.dissatisfy}">1</td>
             <td th:text="${score.total}">3</td>
-            <td><a th:href="@{'/report/by/' + ${score.department.id} + '/' + ${startDate} + '/' + ${endDate}}"><button type="button" class="btn btn-success btn-sm"><i class="fa fa-magic"></i>&nbsp; View</button></a></td>
+            <td><a th:href="@{'/report/delete/' + ${score.department.id} + '/' + ${#temporals.format(score.latest, 'yyyy-MM-dd')}  }"><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-magic"></i>&nbsp; Delete</button></a></td>
         </tr>
         <tr>
             <td>Jumlah Total</td>

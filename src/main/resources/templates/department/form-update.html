@@ -20,7 +20,13 @@
             <div class="row form-group">
                 <div class="col col-md-3"><label for="available" class=" form-control-label">Available</label>
                 </div>
-                <div class="col-12 col-md-9"><input th:field="*{available}" type="text" id="available" name="available" class="form-control"></div>
+                <div class="col-12 col-md-9">
+<!--                    <input th:field="*{available}" type="text" id="available" name="available" class="form-control">-->
+                    <select class="form-control" th:field="*{available}">
+                        <option th:value="1" th:text="Tersedia"></option>
+                        <option th:value="0" th:text="Terpakai"></option>
+                    </select>
+                </div>
             </div>
             <div class="row form-group">
                 <div class="col col-md-3"><label for="available" class=" form-control-label">Background Color</label>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -86,6 +87,14 @@ public  class ReportController {
         return "report/department";
     }
 
+    @RequestMapping("delete/{departmentId}/{date}")
+    public String  deleteReportByDate(@PathVariable Long departmentId, @PathVariable String date) throws ParseException {
+        scoreRepository.deleteByIdAndStringCreated(departmentId, date);
+        String sDate1="31/12/1998";
+        Date date2 =new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
+        logger.error("date 3 nya  {} ", date2);
+        return "redirect:/report";
+    }
 
 
 }
