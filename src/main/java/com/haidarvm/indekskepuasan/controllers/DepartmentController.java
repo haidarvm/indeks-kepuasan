@@ -69,6 +69,12 @@ public class DepartmentController {
         model.addAttribute("baseurl", baseUrl);
         return "department/form-update";
     }
+    
+    @GetMapping("show/{departmentId}")
+    public String getDepartmentForm(@PathVariable Long departmentId, Model model) {
+        model.addAttribute("department", departmentRepository.findById(departmentId));
+        return "department/show";
+    }
 
     @PostMapping("update/{departmentId}")
     public String processUpdateDepartmentForm(@Valid Department department, BindingResult result, @PathVariable Long departmentId, MultipartHttpServletRequest multipartRequest, RedirectAttributes redirectAttributes) throws IOException {
