@@ -20,15 +20,14 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.0/normalize.min.css">
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/css/pe-icon-7-stroke.min.css}">
+    <link rel="stylesheet" th:href="@{/css/flag-icon.min.css}">
     <link rel="stylesheet" th:href="@{/css/cs-skin-elastic.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+    <!--    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>-->
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
@@ -47,17 +46,34 @@
                 </li>
                 <li class="menu-title">Report</li><!-- /.menu-title -->
                 <li class="menu-item-has-children dropdown show">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-cogs"></i>Report</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="true"> <i class="menu-icon fa fa-cogs"></i>Report</a>
                     <ul class="sub-menu children dropdown-menu show">
                         <li><i class="fa fa-puzzle-piece"></i><a th:href="@{'/report/'}">Semua</a></li>
-                        <li><i class="fa fa-id-badge"></i><a  th:href="@{'/report/by/1/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + '/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}}">Layanan Gigi</a></li>
-                        <li><i class="fa fa-bars"></i><a th:href="@{'/report/by/2/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + '/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} }">Layanan KIA</a></li>
-                        <li><i class="fa fa-id-card-o"></i><a th:href="@{'/report/by/3/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + '/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}}">Layanan UGD</a></li>
-                        <li><i class="fa fa-exclamation-triangle"></i><a th:href="@{'/report/by/4/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + '/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}}">Layanan Obat	</a></li>
-                        <li><i class="fa fa-spinner"></i><a th:href="@{'/report/by/5/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + '/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}}">Layanan Pendaftaran</a></li>
-                        <li><i class="fa fa-fire"></i><a th:href="@{'/report/by/6/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + '/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}}">Layanan Pemeriksaan Umum</a></li>
-                        <li><i class="fa fa-book"></i><a th:href="@{'/report/by/7/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + '/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}}">Layanan laboratorium</a></li>
-                        <li><i class="fa fa-th"></i><a th:href="@{'/report/by/8/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + '/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}}">Layanan Konseling</a></li>
+                        <li><i class="fa fa-id-badge"></i><a
+                                th:href="@{'/report/by/1/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + '/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}}">Layanan
+                            Gigi</a></li>
+                        <li><i class="fa fa-bars"></i><a
+                                th:href="@{'/report/by/2/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + '/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} }">Layanan
+                            KIA</a></li>
+                        <li><i class="fa fa-id-card-o"></i><a
+                                th:href="@{'/report/by/3/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + '/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}}">Layanan
+                            UGD</a></li>
+                        <li><i class="fa fa-exclamation-triangle"></i><a
+                                th:href="@{'/report/by/4/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + '/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}}">Layanan
+                            Obat </a></li>
+                        <li><i class="fa fa-spinner"></i><a
+                                th:href="@{'/report/by/5/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + '/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}}">Layanan
+                            Pendaftaran</a></li>
+                        <li><i class="fa fa-fire"></i><a
+                                th:href="@{'/report/by/6/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + '/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}}">Layanan
+                            Pemeriksaan Umum</a></li>
+                        <li><i class="fa fa-book"></i><a
+                                th:href="@{'/report/by/7/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + '/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}}">Layanan
+                            laboratorium</a></li>
+                        <li><i class="fa fa-th"></i><a
+                                th:href="@{'/report/by/8/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')} + '/' + ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}}">Layanan
+                            Konseling</a></li>
                     </ul>
                 </li>
                 <li class="menu-item"><a href="/department/">Department</a></li><!-- /.menu-title -->
@@ -136,10 +152,10 @@
         <div class="footer-inner bg-white">
             <div class="row">
                 <div class="col-sm-6">
-                    Copyright &copy; 2019 haidarvm
+                    Copyright &copy; 2019 Customer Satisfaction Index
                 </div>
                 <div class="col-sm-6 text-right">
-                    Designed by <a href="https://haidarvm.com">haidarvm</a>
+                    Designed
                 </div>
             </div>
         </div>
@@ -152,8 +168,8 @@
 <!-- Scripts -->
 
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/jquery.matchHeight.min.js}"></script>
 <script th:src="|/js/main.js|"></script>
 </body>
 </html>

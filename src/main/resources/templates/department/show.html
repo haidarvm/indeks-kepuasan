@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'departments')}">
+
+  <body>
+  
+  
+    <h2>department Information</h2>
+  
+  
+    <table class="table table-striped" th:object="${department}">
+     
+      <tr>
+        <th>textService</th>
+        <td th:text="*{textService}" /></td>
+      </tr>
+    </table>
+  
+    <a th:href="@{{id}/edit(id=${owner.id})}" class="btn btn-default">Edit
+      Owner</a>
+    <a th:href="@{{id}/pets/new(id=${owner.id})}" class="btn btn-default">Add
+      New Pet</a>
+  
+    <br />
+    <br />
+    <br />
+    
+  
+  </body>
+
+</html>
+

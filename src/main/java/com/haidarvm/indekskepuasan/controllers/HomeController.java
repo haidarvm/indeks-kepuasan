@@ -14,7 +14,6 @@ public class HomeController {
     @RequestMapping("")
     public String home(Model model) {
         model.addAttribute("title", "Dashboard");
-        logger.debug("Created file xlx {}", "mana ini excel nya siiiih");
         return "home";
     }
 }

@@ -1,0 +1,19 @@
+#1. install java jdk 11
+
+#2. create java path variable
+add in Advanced System Settings
+select advanced 
+select Environtment Variables
+Path under System Variables
+Edit
+add new
+browse
+location is 
+C:\Program Files\Java\jdk-11.0.4\bin\java
+
+#3. extract indeks.zip all files in home directory for example C:/Users/haidar/
+extract indeks.zip
+
+#run this if port 80 available
+java -jar indeks-kepuasan-0.1.2-SNAPSHOT.jar --server.port=80
+
