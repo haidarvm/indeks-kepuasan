@@ -22,6 +22,8 @@ target/
 
 /logs/
 pid.file
+index.out
+index.err
 
 ### NetBeans ###
 /nbproject/private/
