@@ -1,2 +1,2 @@
 #!/bin/bash
-mvn spring-boot:run & echo $! > ./pid.file &
+mvn spring-boot:run -Drun.jvmArguments="-Xmx128m" & echo $! > ./pid.file &
